@@ -91,7 +91,7 @@ function redirect(_origin, code) {
     error: ["That message did not send.", "Check the fields and try again.", "danger"],
   };
   const [title, detail, kind] = copy[code] || copy.error;
-  const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${title}</title><link rel="stylesheet" href="/vendor/bootswatch/lux/bootstrap.min.css"></head><body><main class="container py-5"><div class="alert alert-${kind}" role="status"><h1 class="h4">${title}</h1><p class="mb-0">${detail}</p></div><a class="btn btn-primary" href="/#contact">Back</a></main></body></html>`;
+  const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${title}</title><link rel="stylesheet" href="/vendor/bootswatch/minty/bootstrap.min.css"><link rel="stylesheet" href="/theme/moss.css"></head><body><main class="container py-5"><div class="alert alert-${kind}" role="status"><h1 class="h4">${title}</h1><p class="mb-0">${detail}</p></div><a class="btn btn-primary" href="/#contact">Back</a></main></body></html>`;
   return new Response(html, { status: 200, headers: { "content-type": "text/html; charset=utf-8" } });
 }
 

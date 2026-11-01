@@ -4,7 +4,7 @@ Business site for [theplaceholdertext.com](https://theplaceholdertext.com/). Thi
 
 ## UI
 
-Bootstrap 5.3 and the Bootswatch Lux theme, vendored. See `VENDOR.md`.
+Bootstrap 5.3 and Bootswatch Minty, retinted moss in `public/theme/moss.css`. See `VENDOR.md`.
 
 ## Contact routing
 

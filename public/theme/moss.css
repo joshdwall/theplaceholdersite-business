@@ -1,0 +1,73 @@
+/* Retint of Bootswatch Minty. Components stay Minty's. Only Bootstrap variables and the two button rules Minty bakes in. */
+:root,
+[data-bs-theme="light"] {
+  --bs-primary: #2f6b45;
+  --bs-primary-rgb: 47, 107, 69;
+  --bs-secondary: #5c735f;
+  --bs-secondary-rgb: 92, 115, 95;
+  --bs-success: #3d8b55;
+  --bs-success-rgb: 61, 139, 85;
+  --bs-primary-text-emphasis: #1d4330;
+  --bs-secondary-text-emphasis: #2c3b2e;
+  --bs-success-text-emphasis: #1d4330;
+  --bs-primary-bg-subtle: #e5f0e6;
+  --bs-secondary-bg-subtle: #e7eee6;
+  --bs-success-bg-subtle: #e3f2e6;
+  --bs-primary-border-subtle: #c5dcc8;
+  --bs-secondary-border-subtle: #c9d7c8;
+  --bs-success-border-subtle: #b7dfc0;
+  --bs-body-color: #243028;
+  --bs-body-color-rgb: 36, 48, 40;
+  --bs-body-bg: #f6f8f3;
+  --bs-body-bg-rgb: 246, 248, 243;
+  --bs-emphasis-color: #14241b;
+  --bs-emphasis-color-rgb: 20, 36, 27;
+  --bs-secondary-color: rgba(36, 48, 40, 0.72);
+  --bs-secondary-color-rgb: 36, 48, 40;
+  --bs-tertiary-color: rgba(36, 48, 40, 0.55);
+  --bs-heading-color: #1a3326;
+  --bs-link-color: #2a6240;
+  --bs-link-color-rgb: 42, 98, 64;
+  --bs-link-hover-color: #1c432c;
+  --bs-link-hover-color-rgb: 28, 67, 44;
+  --bs-border-color: #d5e2d6;
+  --bs-secondary-bg: #eef4ec;
+  --bs-secondary-bg-rgb: 238, 244, 236;
+  --bs-tertiary-bg: #e4eee3;
+  --bs-tertiary-bg-rgb: 228, 238, 227;
+  --bs-body-line-height: 1.6;
+  --bs-border-radius: 0.6rem;
+  --bs-border-radius-sm: 0.4rem;
+  --bs-border-radius-lg: 0.85rem;
+}
+
+.btn-primary {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #2f6b45;
+  --bs-btn-border-color: #2f6b45;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #255638;
+  --bs-btn-hover-border-color: #214d32;
+  --bs-btn-focus-shadow-rgb: 47, 107, 69;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #214d32;
+  --bs-btn-active-border-color: #1c422b;
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #2f6b45;
+  --bs-btn-disabled-border-color: #2f6b45;
+}
+
+.btn-outline-primary {
+  --bs-btn-color: #2f6b45;
+  --bs-btn-border-color: #2f6b45;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #2f6b45;
+  --bs-btn-hover-border-color: #2f6b45;
+  --bs-btn-focus-shadow-rgb: 47, 107, 69;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #255638;
+  --bs-btn-active-border-color: #255638;
+  --bs-btn-disabled-color: #2f6b45;
+  --bs-btn-disabled-bg: transparent;
+  --bs-btn-disabled-border-color: #2f6b45;
+}
