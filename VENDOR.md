@@ -8,5 +8,11 @@ Do not rewrite the vendor files. Pages use Bootstrap classes only.
 | `public/theme/moss.css` | Variable retint on top of Minty | site |
 | `public/vendor/bootstrap/bootstrap.bundle.min.js` | Bootstrap bundle | 5.3.3 |
 | `public/vendor/bootstrap-icons/` | Bootstrap Icons | 1.11.3 |
+| `public/vendor/fonts/bricolage-grotesque/` | Bricolage Grotesque (SIL OFL) | 5.2.8 |
+| `public/vendor/fonts/literata/` | Literata (SIL OFL) | 5.2.8 |
+| `public/vendor/fonts/source-serif-4/` | Source Serif 4 (SIL OFL) | 5.2.8 |
+| `public/media/moss-rocks.jpg` | Marianne Gagnon, public domain | — |
+
+Which font is on the page is `font` in `public/config/site.json`, not a code change.
 
 Minty supplies the components, radius, and type. `moss.css` only resets Bootstrap color variables, plus the two button rules Minty compiles to fixed colors.

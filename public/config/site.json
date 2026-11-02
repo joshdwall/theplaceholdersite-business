@@ -1,0 +1,25 @@
+{
+  "name": "ThePlaceholderText",
+  "tagline": "We Fit Your Need.",
+  "summary": "ThePlaceholderText turns the work your staff already do into automations they will use. Phrase Board is the first product.",
+  "font": "bricolage",
+  "fonts": {
+    "bricolage": {
+      "family": "\"Bricolage Grotesque\", \"Segoe UI\", sans-serif",
+      "stylesheet": "/vendor/fonts/bricolage-grotesque/font.css"
+    },
+    "literata": {
+      "family": "\"Literata\", Georgia, serif",
+      "stylesheet": "/vendor/fonts/literata/font.css"
+    },
+    "source-serif": {
+      "family": "\"Source Serif 4\", Georgia, serif",
+      "stylesheet": "/vendor/fonts/source-serif-4/font.css"
+    }
+  },
+  "hero": {
+    "image": "/media/moss-rocks.jpg",
+    "alt": "Lush green moss growing over forest rocks",
+    "credit": "Photograph by Marianne Gagnon. Public domain."
+  }
+}

@@ -3,20 +3,19 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Placeholder Text — We Fit Your Need</title>
-    <meta
-      name="description"
-      content="Placeholder Text turns the work your staff already do into automations they will use. Phrase Board is the first product."
-    />
+    <title>__SITE_NAME__ — __SITE_TAGLINE__</title>
+    <meta name="description" content="__SITE_SUMMARY__" />
+    __FONT_LINK__
+    <style>:root { --brand-font: __FONT_FAMILY__; }</style>
     <link rel="stylesheet" href="/vendor/bootswatch/minty/bootstrap.min.css" />
     <link rel="stylesheet" href="/theme/moss.css" />
     <link rel="stylesheet" href="/vendor/bootstrap-icons/bootstrap-icons.min.css" />
   </head>
   <body data-bs-spy="scroll" data-bs-target="#site-nav" data-bs-smooth-scroll="true" tabindex="0">
     <a class="visually-hidden-focusable" href="#main">Skip to content</a>
-    <nav id="site-nav" class="navbar navbar-expand-lg sticky-top bg-body border-bottom">
+    <nav id="site-nav" class="navbar navbar-expand-lg navbar-dark sticky-top site-nav">
       <div class="container">
-        <a class="navbar-brand" href="#top">Placeholder Text</a>
+        <a class="navbar-brand" href="#top">__SITE_NAME__</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -38,16 +37,26 @@
       </div>
     </nav>
 
-    <header id="top" class="py-5 border-bottom bg-body-tertiary">
-      <div class="container py-4">
-        <p class="text-uppercase text-secondary mb-2">Placeholder Text</p>
-        <h1 class="display-5">We Fit Your Need.</h1>
-        <p class="lead col-lg-8">
-          We sit with the work your people already do, then turn those steps into automations
-          they will actually use. Less handoff friction. More revenue with a smaller staff.
-        </p>
-        <a class="btn btn-primary btn-lg" href="#contact">Talk with us</a>
-        <a class="btn btn-outline-primary btn-lg ms-2" href="#product">See Phrase Board</a>
+    <header id="top">
+      <div class="row g-0 hero-row">
+        <div class="col-lg-5 order-2 order-lg-1 hero-copy d-flex align-items-center">
+          <div class="px-4 py-5 px-lg-5">
+            <h1 class="wordmark">__SITE_NAME__</h1>
+            <p class="hero-tagline">__SITE_TAGLINE__</p>
+            <p class="hero-lead">
+              We sit with the work your people already do, then turn those steps into automations
+              they will actually use. Less handoff friction. More revenue with a smaller staff.
+            </p>
+            <a class="btn btn-primary btn-lg" href="#contact">Talk with us</a>
+            <a class="btn btn-outline-primary btn-lg ms-2 mt-2 mt-sm-0" href="#product">See Phrase Board</a>
+          </div>
+        </div>
+        <div class="col-lg-7 order-1 order-lg-2 hero-media">
+          <figure class="hero-figure">
+            <img class="hero-photo" src="__HERO_IMAGE__" alt="__HERO_ALT__" />
+            <figcaption>__HERO_CREDIT__</figcaption>
+          </figure>
+        </div>
       </div>
     </header>
 
@@ -196,7 +205,7 @@
 
     <footer class="py-4 border-top">
       <div class="container d-flex justify-content-between">
-        <span>Placeholder Text</span>
+        <span>__SITE_NAME__</span>
         <a href="mailto:info@theplaceholdertext.com">info@theplaceholdertext.com</a>
       </div>
     </footer>
