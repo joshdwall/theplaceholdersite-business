@@ -18,6 +18,9 @@
     {
       "name": "SEND_EMAIL",
       "destination_address": "joshdwall@gmail.com"
+    },
+    {
+      "name": "SEND_VISITOR"
     }
   ],
   "routes": [

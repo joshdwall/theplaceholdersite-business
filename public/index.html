@@ -12,52 +12,59 @@
   <body>
     <a class="skip" href="#main">Skip to content</a>
     <header class="nav">
-      <a class="brand" href="#top">__SITE_NAME__</a>
+      <a class="brand" href="/#top">__SITE_NAME__</a>
       <nav aria-label="Sections">
         <ul class="nav-links">
-          <li><a href="#services">Services</a></li>
-          <li>
-            <details class="products-menu">
-              <summary>Products</summary>
-              <ul>
-                <li><a href="#phrase-board">Phrase Board</a></li>
-                <li><a href="#case-canvas">CaseCanvas</a></li>
-                <li><a href="#template-creator">Template Creator</a></li>
-                <li><a href="#term-wizard">Term Wizard</a></li>
-                <li><a href="#historyhub">HistoryHub</a></li>
-                <li><a href="#historyhub-tutorial">HistoryHub Tutorial</a></li>
-                <li><a href="#workflow-diagram">Workflow diagram</a></li>
-                <li><a href="#excel-to-paver">Excel to Paver</a></li>
-                <li><a href="#openscad">OpenSCAD</a></li>
-                <li><a href="#graphic-design">Graphic Design</a></li>
-              </ul>
-            </details>
-          </li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="/#services">Services</a></li>
+          <li><a href="/products">Projects</a></li>
+          <li><a class="nav-cta" href="/#contact">Talk with us</a></li>
         </ul>
       </nav>
     </header>
 
     <main id="main">
       <section class="hero" id="top">
-        <div class="hero-copy">
-          <p class="eyebrow">__SITE_TAGLINE__</p>
-          <h1>We sit with the work your people already do.</h1>
-          <p class="lede">
-            Then we turn those steps into automations they will actually use. Less handoff friction.
-            More revenue with a smaller staff.
-          </p>
-          <div class="actions">
-            <a class="button" href="#contact">Talk with us</a>
-            <a class="button button-quiet" href="#products">See products</a>
+        <img class="hero-bg" src="__HERO_IMAGE__" alt="__HERO_ALT__" />
+        <div class="hero-shade" aria-hidden="true"></div>
+        <div class="hero-stage">
+          <div class="hero-copy">
+            <h1 class="hero-brand">__SITE_NAME__</h1>
+            <p class="hero-tag">__SITE_TAGLINE__</p>
+            <p class="lede">
+              We sit with the work your people already do, then turn those steps into automations they will use.
+            </p>
+            <div class="actions">
+              <a class="button" href="#contact">Talk with us</a>
+              <a class="button button-line" href="/products">See projects</a>
+            </div>
+          </div>
+          <div class="hero-cards" id="services" aria-label="Services">
+            <a class="hero-card" href="#services-list">
+              <h3>Workflows become automations</h3>
+              <p>Watch the real sequence. Replace retyping and waiting with a step the system does.</p>
+            </a>
+            <a class="hero-card" href="#services-list">
+              <h3>Less friction between departments</h3>
+              <p>One shared path between desks so a request does not die in an inbox.</p>
+            </a>
+            <a class="hero-card" href="#services-list">
+              <h3>Tools staff will use</h3>
+              <p>Fit the fix to the screen they already have open. No second login for the same chart.</p>
+            </a>
+            <a class="hero-card" href="#services-list">
+              <h3>Learned on the job</h3>
+              <p>Learn the exceptions from the people who hit them, then encode the path they already trust.</p>
+            </a>
+            <a class="hero-card" href="#services-list">
+              <h3>More revenue, same headcount</h3>
+              <p>People stay on work that needs a person. Repeat steps leave the desk.</p>
+            </a>
           </div>
         </div>
-        <figure class="hero-figure">
-          <img src="__HERO_IMAGE__" alt="__HERO_ALT__" />
-        </figure>
+        <p class="hero-credit">__HERO_CREDIT__</p>
       </section>
 
-      <section class="section" id="services">
+      <section class="section services-band" id="services-list">
         <div class="section-inner">
           <p class="eyebrow">Services</p>
           <h2>What we put in place</h2>
@@ -101,102 +108,20 @@
         </div>
       </section>
 
-      <section class="section" id="products">
-        <div class="section-inner">
-          <p class="eyebrow">Products</p>
-          <h2>What we have built</h2>
-          <div class="catalog">
-            <article class="product" id="phrase-board">
-              <img src="/media/phrase-board.svg" alt="" width="640" height="400" />
-              <div>
-                <h3>Phrase Board</h3>
-                <p>
-                  A Windows overlay that stays on top of the job. Staff keep the phrases they repeat
-                  — chart notes, ticket replies, handoffs — on a board and copy them in one click.
-                  The first sales motion is Microsoft: Windows teams, then the Microsoft Store.
-                </p>
-                <p class="status">Windows. Store submission in progress. Picture is a stand-in.</p>
-              </div>
-            </article>
-            <article class="product" id="case-canvas">
-              <img src="https://joshdwall.com/assets/projects/case-canvas/01-casecanvas-demo-thumb.gif" alt="CaseCanvas on a Power Apps canvas" width="640" height="400" loading="lazy" />
-              <div>
-                <h3>CaseCanvas</h3>
-                <p>The case path as one Power Apps canvas, on the Microsoft tools the team already has.</p>
-              </div>
-            </article>
-            <article class="product" id="template-creator">
-              <img src="https://joshdwall.com/assets/projects/template-creator/02-conditions-and-sidebar-templatewizard.png" alt="Template Creator, also called TemplateWizard" width="640" height="400" loading="lazy" />
-              <div>
-                <h3>Template Creator</h3>
-                <p>TemplateWizard. The template and the steps live in the app the staff already have open.</p>
-              </div>
-            </article>
-            <article class="product" id="term-wizard">
-              <img src="https://joshdwall.com/assets/projects/term-wizard/02-termwizard-main-menu.png" alt="Term Wizard workspace" width="640" height="400" loading="lazy" />
-              <div>
-                <h3>Term Wizard</h3>
-                <p>Finds the term that belongs on the path and hands it to Template Creator.</p>
-              </div>
-            </article>
-            <article class="product" id="historyhub">
-              <img src="https://joshdwall.com/assets/projects/historyhub/01-historyhub-hero.png" alt="HistoryHub" width="640" height="400" loading="lazy" />
-              <div>
-                <h3>HistoryHub</h3>
-                <p>The history workspace. More of the work gets done without a larger desk.</p>
-              </div>
-            </article>
-            <article class="product" id="historyhub-tutorial">
-              <img src="https://joshdwall.com/assets/projects/historyhub-tutorial/01-tutorial-hero.png" alt="HistoryHub Tutorial" width="640" height="400" loading="lazy" />
-              <div>
-                <h3>HistoryHub Tutorial</h3>
-                <p>A guided pass through HistoryHub so a new person can learn it on the job.</p>
-              </div>
-            </article>
-            <article class="product" id="workflow-diagram">
-              <img src="https://joshdwall.com/assets/projects/salesforce/01-entire-page-of-logic-drawn-draw-io.png" alt="Application and data workflow diagram" width="640" height="400" loading="lazy" />
-              <div>
-                <h3>Application and data workflow</h3>
-                <p>The path from application to enrollment, drawn before the build.</p>
-              </div>
-            </article>
-            <article class="product" id="excel-to-paver">
-              <img src="https://joshdwall.com/assets/projects/excel-paver/01-excel-document-to-paver-compatible-xml-format-for-the-city.png" alt="Excel to Paver" width="640" height="400" loading="lazy" />
-              <div>
-                <h3>Excel to Paver</h3>
-                <p>Years of inspection spreadsheets converted into the city’s XML.</p>
-              </div>
-            </article>
-            <article class="product" id="openscad">
-              <img src="https://joshdwall.com/assets/projects/openscad/01-1-ai-openscad.png" alt="An OpenSCAD model" width="640" height="400" loading="lazy" />
-              <div>
-                <h3>OpenSCAD</h3>
-                <p>Repeatable parts, written as code.</p>
-              </div>
-            </article>
-            <article class="product" id="graphic-design">
-              <img src="https://joshdwall.com/assets/projects/graphic-design/01-royal-animal-photoshop-printed-canvas-1.jpg" alt="A printed graphic" width="640" height="400" loading="lazy" />
-              <div>
-                <h3>Graphic Design</h3>
-                <p>Print and web pieces for the work around the tools.</p>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="contact">
+      <section class="section contact-band" id="contact">
         <div class="section-inner contact-grid">
           <div>
             <p class="eyebrow">Contact</p>
-            <h2>Write to us</h2>
+            <h2>Share a few details.</h2>
             <p class="intro">
-              Email <a class="mail" href="mailto:info@theplaceholdertext.com">info@theplaceholdertext.com</a>
-              or use the form. A person reads it.
+              A person reads this. You get a confirmation at the address you enter, then a reply from
+              <a class="mail" href="mailto:info@theplaceholdertext.com">info@theplaceholdertext.com</a>.
             </p>
           </div>
           <form method="post" action="/api/contact">
-            <div id="form-sent" class="note is-hidden" role="status">Message sent. We will reply from that inbox.</div>
+            <div id="form-sent" class="note is-hidden" role="status">Message sent. We have it. A confirmation is on its way to the address you entered.</div>
+            <div id="form-slow" class="note note-warn is-hidden" role="status">Message sent. The mail service was slow to answer. If you do not hear back, email info@theplaceholdertext.com.</div>
+            <div id="form-sent-noconfirm" class="note note-warn is-hidden" role="status">Message sent. We have it. The confirmation to your address did not go out. We will still reply from info@theplaceholdertext.com.</div>
             <div id="form-limited" class="note note-warn is-hidden" role="status">Too many sends from this network. Wait a minute and try again.</div>
             <div id="form-error" class="note note-bad is-hidden" role="status">That message did not send. Check the fields and try again.</div>
             <label>
@@ -230,15 +155,40 @@
 
     <footer class="site-footer">
       <span>__SITE_NAME__</span>
-      <span>__HERO_CREDIT__</span>
       <a href="mailto:info@theplaceholdertext.com">info@theplaceholdertext.com</a>
     </footer>
     <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "911020731a68405eb5bfb1748cf2c8cd"}'></script>
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <script>
-      const code = new URLSearchParams(location.search).get("form");
-      const note = code && document.getElementById("form-" + code);
-      if (note) note.classList.remove("is-hidden");
+      const form = document.querySelector("form[action='/api/contact']");
+      if (form) {
+        form.addEventListener("submit", async (event) => {
+          event.preventDefault();
+          const button = form.querySelector("button[type=submit]");
+          form.querySelectorAll(".note").forEach((note) => note.classList.add("is-hidden"));
+          button.disabled = true;
+          const label = button.textContent;
+          button.textContent = "Sending…";
+          let code = "error";
+          try {
+            const res = await fetch(form.action, {
+              method: "POST",
+              body: new FormData(form),
+              headers: { Accept: "application/json" },
+            });
+            const data = await res.json();
+            code = data.code || "error";
+          } catch {
+            code = "error";
+          }
+          const note = document.getElementById("form-" + code);
+          if (note) note.classList.remove("is-hidden");
+          button.disabled = false;
+          button.textContent = label;
+          if (code === "sent" || code === "slow") form.reset();
+          if (window.turnstile) window.turnstile.reset();
+        });
+      }
     </script>
   </body>
 </html>

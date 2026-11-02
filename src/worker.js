@@ -3,9 +3,10 @@ import { EmailMessage } from "cloudflare:email";
 const MAX_BODY = 20_000;
 const WINDOW_SECONDS = 60;
 const MAX_PER_WINDOW = 3;
+const SEND_MS = 12_000;
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
     if (url.hostname === "www.theplaceholdertext.com") {
       url.hostname = "theplaceholdertext.com";
@@ -13,51 +14,59 @@ export default {
     }
     if (url.pathname === "/api/contact") {
       if (request.method !== "POST") {
-        return new Response("Method not allowed", { status: 405 });
+        return new Response("Method not allowed", { status: 405, headers: { allow: "POST" } });
       }
-      return handleContact(request, env);
+      return handleContact(request, env, ctx);
+    }
+    if (url.pathname === "/products.html") {
+      const clean = new URL("/products", url);
+      return Response.redirect(clean.toString(), 301);
+    }
+    if (url.pathname === "/products" || url.pathname === "/products/") {
+      const assetUrl = new URL("/products.html", url);
+      return renderAsset(new Request(assetUrl, request), env);
     }
     return renderAsset(request, env);
   },
 };
 
-async function handleContact(request, env) {
+async function handleContact(request, env, ctx) {
   const to = env.CONTACT_TO;
   const from = env.CONTACT_FROM;
 
   const length = Number(request.headers.get("content-length") || 0);
   if (length > MAX_BODY) {
-    return redirect(request, env, "error");
+    return reply(request, env, "error");
   }
 
   const ip = request.headers.get("CF-Connecting-IP") || "unknown";
   if (await overLimit(ip)) {
-    return redirect(request, env, "limited");
+    return reply(request, env, "limited");
   }
 
   let form;
   try {
     form = await request.formData();
   } catch {
-    return redirect(request, env, "error");
+    return reply(request, env, "error");
   }
 
   if (String(form.get("company_url") || "").trim()) {
-    return redirect(request, env, "sent");
+    return reply(request, env, "sent");
   }
 
   const token = String(form.get("cf-turnstile-response") || "");
   const turnstileOk = await verifyTurnstile(token, ip, env.TURNSTILE_SECRET_KEY);
   if (!turnstileOk) {
-    return redirect(request, env, "error");
+    return reply(request, env, "error");
   }
 
   const name = oneLine(form.get("name"), 120);
   const email = oneLine(form.get("email"), 200);
   const organization = oneLine(form.get("organization"), 160);
   const message = String(form.get("message") || "").replace(/\r/g, "").trim().slice(0, 4000);
-  if (!name || !email || !message || !email.includes("@")) {
-    return redirect(request, env, "error");
+  if (!name || !isEmail(email) || !message) {
+    return reply(request, env, "error");
   }
 
   const site = await loadSite(env, request);
@@ -77,17 +86,75 @@ async function handleContact(request, env) {
     message,
   ].join("\r\n");
 
+  let lead;
   try {
-    await env.SEND_EMAIL.send(new EmailMessage(from, to, raw));
+    lead = await within(SEND_MS, env.SEND_EMAIL.send(new EmailMessage(from, to, raw)));
   } catch {
-    return redirect(request, env, "error");
+    return reply(request, env, "error");
   }
-  return redirect(request, env, "sent");
+  if (lead.timedOut) {
+    ctx.waitUntil(lead.promise.catch(() => {}));
+    return reply(request, env, "slow");
+  }
+
+  ctx.waitUntil(sendVisitorReceipt(env, from, email, brand, name).catch(() => {}));
+  return reply(request, env, "sent");
+}
+
+async function sendVisitorReceipt(env, from, email, brand, name) {
+  if (!env.SEND_VISITOR) return false;
+  const reply = [
+    `From: "${brand}" <${from}>`,
+    `To: ${email}`,
+    `Reply-To: ${from}`,
+    `Subject: We received your note`,
+    "MIME-Version: 1.0",
+    "Content-Type: text/plain; charset=utf-8",
+    "",
+    `Hello ${name},`,
+    "",
+    "We have your message. A person will reply from this address.",
+    "",
+    brand,
+  ].join("\r\n");
+  try {
+    await env.SEND_VISITOR.send(new EmailMessage(from, email, reply));
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function within(ms, promise) {
+  let timer;
+  const timeout = new Promise((resolve) => {
+    timer = setTimeout(() => resolve({ timedOut: true, promise }), ms);
+  });
+  const done = promise.then(() => ({ timedOut: false }));
+  return Promise.race([done, timeout]).finally(() => clearTimeout(timer));
+}
+
+function wantsJson(request) {
+  return (request.headers.get("accept") || "").includes("application/json");
+}
+
+async function reply(request, env, code) {
+  if (wantsJson(request)) {
+    const ok = code === "sent" || code === "slow";
+    const status = ok ? 200 : code === "limited" ? 429 : 400;
+    return new Response(JSON.stringify({ ok, code }), {
+      status,
+      headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" },
+    });
+  }
+  return redirect(request, env, code);
 }
 
 async function redirect(request, env, code) {
   const copy = {
-    sent: ["Message sent.", "We will reply from that inbox.", "success"],
+    sent: ["Message sent.", "We have it. A confirmation is on its way to the address you entered.", "success"],
+    slow: ["Message sent.", "The mail service was slow to answer. If you do not hear back, email info@theplaceholdertext.com.", "warning"],
+    "sent-noconfirm": ["Message sent.", "We have it. The confirmation to your address did not go out. We will still reply from info@theplaceholdertext.com.", "warning"],
     limited: ["Too many sends from this network.", "Wait a minute and try again.", "warning"],
     error: ["That message did not send.", "Check the fields and try again.", "danger"],
   };
@@ -210,6 +277,10 @@ function headerName(value) {
 
 function oneLine(value, max) {
   return String(value || "").replace(/[\r\n]+/g, " ").trim().slice(0, max);
+}
+
+function isEmail(value) {
+  return /^[^\s@<>"]+@[^\s@<>"]+\.[^\s@<>"]+$/.test(value);
 }
 
 async function overLimit(ip) {
