@@ -15,8 +15,24 @@
       <a class="brand" href="#top">__SITE_NAME__</a>
       <nav aria-label="Sections">
         <ul class="nav-links">
-          <li><a href="#product">Phrase Board</a></li>
           <li><a href="#services">Services</a></li>
+          <li>
+            <details class="products-menu">
+              <summary>Products</summary>
+              <ul>
+                <li><a href="#phrase-board">Phrase Board</a></li>
+                <li><a href="#case-canvas">CaseCanvas</a></li>
+                <li><a href="#template-creator">Template Creator</a></li>
+                <li><a href="#term-wizard">Term Wizard</a></li>
+                <li><a href="#historyhub">HistoryHub</a></li>
+                <li><a href="#historyhub-tutorial">HistoryHub Tutorial</a></li>
+                <li><a href="#workflow-diagram">Workflow diagram</a></li>
+                <li><a href="#excel-to-paver">Excel to Paver</a></li>
+                <li><a href="#openscad">OpenSCAD</a></li>
+                <li><a href="#graphic-design">Graphic Design</a></li>
+              </ul>
+            </details>
+          </li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
@@ -33,33 +49,12 @@
           </p>
           <div class="actions">
             <a class="button" href="#contact">Talk with us</a>
-            <a class="button button-quiet" href="#product">See Phrase Board</a>
+            <a class="button button-quiet" href="#products">See products</a>
           </div>
         </div>
         <figure class="hero-figure">
           <img src="__HERO_IMAGE__" alt="__HERO_ALT__" />
         </figure>
-      </section>
-
-      <section class="section" id="product">
-        <div class="section-inner">
-          <p class="eyebrow">First product</p>
-          <h2>Phrase Board</h2>
-          <p class="intro">
-            Phrase Board is a Windows overlay that stays on top of the job. Staff keep the phrases
-            they repeat — chart notes, ticket replies, handoffs — on a board and copy them in one click.
-          </p>
-          <p class="intro">
-            The first sales motion is Microsoft: Windows teams, then the Microsoft Store. Other
-            workplaces come after that.
-          </p>
-          <ul class="facts">
-            <li>Always on top, over the app they already use.</li>
-            <li>Boards of phrases, switched like a profile.</li>
-            <li>One click copies the line to the clipboard.</li>
-          </ul>
-          <p class="status">Windows. Store submission in progress.</p>
-        </div>
       </section>
 
       <section class="section" id="services">
@@ -103,6 +98,90 @@
               </p>
             </li>
           </ol>
+        </div>
+      </section>
+
+      <section class="section" id="products">
+        <div class="section-inner">
+          <p class="eyebrow">Products</p>
+          <h2>What we have built</h2>
+          <div class="catalog">
+            <article class="product" id="phrase-board">
+              <img src="/media/phrase-board.svg" alt="" width="640" height="400" />
+              <div>
+                <h3>Phrase Board</h3>
+                <p>
+                  A Windows overlay that stays on top of the job. Staff keep the phrases they repeat
+                  — chart notes, ticket replies, handoffs — on a board and copy them in one click.
+                  The first sales motion is Microsoft: Windows teams, then the Microsoft Store.
+                </p>
+                <p class="status">Windows. Store submission in progress. Picture is a stand-in.</p>
+              </div>
+            </article>
+            <article class="product" id="case-canvas">
+              <img src="https://joshdwall.com/assets/projects/case-canvas/01-casecanvas-demo-thumb.gif" alt="CaseCanvas on a Power Apps canvas" width="640" height="400" loading="lazy" />
+              <div>
+                <h3>CaseCanvas</h3>
+                <p>The case path as one Power Apps canvas, on the Microsoft tools the team already has.</p>
+              </div>
+            </article>
+            <article class="product" id="template-creator">
+              <img src="https://joshdwall.com/assets/projects/template-creator/02-conditions-and-sidebar-templatewizard.png" alt="Template Creator, also called TemplateWizard" width="640" height="400" loading="lazy" />
+              <div>
+                <h3>Template Creator</h3>
+                <p>TemplateWizard. The template and the steps live in the app the staff already have open.</p>
+              </div>
+            </article>
+            <article class="product" id="term-wizard">
+              <img src="https://joshdwall.com/assets/projects/term-wizard/02-termwizard-main-menu.png" alt="Term Wizard workspace" width="640" height="400" loading="lazy" />
+              <div>
+                <h3>Term Wizard</h3>
+                <p>Finds the term that belongs on the path and hands it to Template Creator.</p>
+              </div>
+            </article>
+            <article class="product" id="historyhub">
+              <img src="https://joshdwall.com/assets/projects/historyhub/01-historyhub-hero.png" alt="HistoryHub" width="640" height="400" loading="lazy" />
+              <div>
+                <h3>HistoryHub</h3>
+                <p>The history workspace. More of the work gets done without a larger desk.</p>
+              </div>
+            </article>
+            <article class="product" id="historyhub-tutorial">
+              <img src="https://joshdwall.com/assets/projects/historyhub-tutorial/01-tutorial-hero.png" alt="HistoryHub Tutorial" width="640" height="400" loading="lazy" />
+              <div>
+                <h3>HistoryHub Tutorial</h3>
+                <p>A guided pass through HistoryHub so a new person can learn it on the job.</p>
+              </div>
+            </article>
+            <article class="product" id="workflow-diagram">
+              <img src="https://joshdwall.com/assets/projects/salesforce/01-entire-page-of-logic-drawn-draw-io.png" alt="Application and data workflow diagram" width="640" height="400" loading="lazy" />
+              <div>
+                <h3>Application and data workflow</h3>
+                <p>The path from application to enrollment, drawn before the build.</p>
+              </div>
+            </article>
+            <article class="product" id="excel-to-paver">
+              <img src="https://joshdwall.com/assets/projects/excel-paver/01-excel-document-to-paver-compatible-xml-format-for-the-city.png" alt="Excel to Paver" width="640" height="400" loading="lazy" />
+              <div>
+                <h3>Excel to Paver</h3>
+                <p>Years of inspection spreadsheets converted into the city’s XML.</p>
+              </div>
+            </article>
+            <article class="product" id="openscad">
+              <img src="https://joshdwall.com/assets/projects/openscad/01-1-ai-openscad.png" alt="An OpenSCAD model" width="640" height="400" loading="lazy" />
+              <div>
+                <h3>OpenSCAD</h3>
+                <p>Repeatable parts, written as code.</p>
+              </div>
+            </article>
+            <article class="product" id="graphic-design">
+              <img src="https://joshdwall.com/assets/projects/graphic-design/01-royal-animal-photoshop-printed-canvas-1.jpg" alt="A printed graphic" width="640" height="400" loading="lazy" />
+              <div>
+                <h3>Graphic Design</h3>
+                <p>Print and web pieces for the work around the tools.</p>
+              </div>
+            </article>
+          </div>
         </div>
       </section>
 
