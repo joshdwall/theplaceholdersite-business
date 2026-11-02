@@ -15,4 +15,4 @@ Do not rewrite the vendor files. Pages use Bootstrap classes only.
 
 Which font is on the page is `font` in `public/config/site.json`, not a code change.
 
-Minty supplies the components, radius, and type. `moss.css` only resets Bootstrap color variables, plus the two button rules Minty compiles to fixed colors.
+The live page does not load Bootstrap. `public/theme/moss.css` is the page design. The Bootstrap files stay in `vendor/` from the earlier build.

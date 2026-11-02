@@ -20,7 +20,7 @@ The hero photograph is public domain: Marianne Gagnon, “Mossy rock texture.”
 
 ## UI
 
-Bootstrap 5.3 and Bootswatch Minty, plus `public/theme/moss.css`. See `VENDOR.md`.
+The page is custom CSS in `public/theme/moss.css`. The layout follows the same shape as Roboyo, Vumi Studio, and Celonis: one claim, one photograph, then the work in plain rows. The name, font, and hero image still come from `public/config/site.json`. See `VENDOR.md`.
 
 ## Contact routing
 

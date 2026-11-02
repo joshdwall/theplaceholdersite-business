@@ -94,7 +94,7 @@ async function redirect(request, env, code) {
   const [title, detail, kind] = copy[code] || copy.error;
   const site = await loadSite(env, request);
   const html = applyHtml(
-    `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${title}</title>__FONT_LINK__<style>:root{--brand-font:__FONT_FAMILY__}</style><link rel="stylesheet" href="/vendor/bootswatch/minty/bootstrap.min.css"><link rel="stylesheet" href="/theme/moss.css"></head><body><main class="container py-5"><div class="alert alert-${kind}" role="status"><h1 class="h4">${title}</h1><p class="mb-0">${detail}</p></div><a class="btn btn-primary" href="/#contact">Back to __SITE_NAME__</a></main></body></html>`,
+    `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${title}</title>__FONT_LINK__<style>:root{--brand-font:__FONT_FAMILY__}</style><link rel="stylesheet" href="/theme/moss.css"></head><body><main class="page-main"><div class="note${kind === "success" ? "" : kind === "warning" ? " note-warn" : " note-bad"}" role="status"><h1>${title}</h1><p>${detail}</p></div><p class="intro"><a class="button" href="/#contact">Back to __SITE_NAME__</a></p></main></body></html>`,
     site,
   );
   return new Response(html, {
