@@ -19,12 +19,8 @@ export default {
       return handleContact(request, env, ctx);
     }
     if (url.pathname === "/products.html") {
-      const clean = new URL("/products", url);
+      const clean = new URL("/products/", url);
       return Response.redirect(clean.toString(), 301);
-    }
-    if (url.pathname === "/products" || url.pathname === "/products/") {
-      const assetUrl = new URL("/products.html", url);
-      return renderAsset(new Request(assetUrl, request), env);
     }
     return renderAsset(request, env);
   },
