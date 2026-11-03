@@ -33,10 +33,17 @@ npx wrangler deploy
 
 The new address must already be a verified Cloudflare Email Routing destination. Inbound mail to `info@theplaceholdertext.com` is forwarded there. The contact form sends to the same address.
 
-## Deploy
+## Deploy / promote (cloud-only Done)
+
+**SSOT:** GitHub Actions workflow **Promote ThePlaceholderText** in this repo (`push` to `main`, or `workflow_dispatch` with `confirm_production=promote-production`).
 
 ```bash
-npm install
-npx wrangler secret put TURNSTILE_SECRET_KEY
-npx wrangler deploy
+npm ci
+npm run preview          # versions upload (non-prod)
+npm run promote -- --confirm   # production deploy + live verify
+npm run verify           # HTTPS checks against theplaceholdertext.com
 ```
+
+Credentials: repo Actions secrets `CLOUDFLARE_API_TOKEN` + `CLOUDFLARE_ACCOUNT_ID` (preferred), or Infisical Universal Auth reading `/cloudflare`.
+
+Laptop `wrangler deploy` is bootstrap/debug only — not Done. enVivo **Standalone worker promote** remains a fallback bootstrap that can copy CLOUDFLARE_* into this repo’s Actions secrets.
