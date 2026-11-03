@@ -24,7 +24,9 @@ const root = path.resolve(__dirname, "..");
 const cfg = JSON.parse(fs.readFileSync(path.join(root, "site.config.json"), "utf8"));
 const INFISICAL = process.env.INFISICAL_API_URL || "https://app.infisical.com";
 const CF = "https://api.cloudflare.com/client/v4";
-const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+/** Cloudflare account ids are 32 hex chars (no dashes). Also accept dashed UUID. */
+const ACCOUNT_ID_RE =
+  /^(?:[0-9a-f]{32}|[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$/i;
 
 const argv = process.argv.slice(2);
 const cmd = argv[0] || "";
@@ -54,12 +56,12 @@ function usage() {
 
 function assertAccountId(account) {
   const id = String(account || "").trim();
-  if (!UUID_RE.test(id)) {
+  if (!ACCOUNT_ID_RE.test(id)) {
     die(
-      `CLOUDFLARE_ACCOUNT_ID looks invalid (len=${id.length}). Fix Actions secrets / Infisical — CF 7003 usually means a bad account id.`,
+      `CLOUDFLARE_ACCOUNT_ID looks invalid (len=${id.length}). Expected 32 hex chars (Cloudflare account id). CF 7003 usually means a bad account id.`,
     );
   }
-  return id;
+  return id.replace(/-/g, "").toLowerCase();
 }
 
 async function infisicalLogin() {
@@ -123,8 +125,16 @@ function wranglerEnv(creds) {
 
 function wrangler(args, creds) {
   const isWin = process.platform === "win32";
-  const npxArgs = ["--yes", "wrangler@4", ...args];
-  const r = spawnSync(isWin ? "npx.cmd" : "npx", npxArgs, {
+  const localBin = path.join(
+    root,
+    "node_modules",
+    ".bin",
+    isWin ? "wrangler.cmd" : "wrangler",
+  );
+  const useLocal = fs.existsSync(localBin);
+  const cmd = useLocal ? localBin : isWin ? "npx.cmd" : "npx";
+  const cmdArgs = useLocal ? args : ["--yes", "wrangler@4", ...args];
+  const r = spawnSync(cmd, cmdArgs, {
     cwd: root,
     encoding: "utf8",
     env: wranglerEnv(creds),
