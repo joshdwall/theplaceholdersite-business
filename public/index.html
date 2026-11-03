@@ -78,7 +78,7 @@
             </label>
             <label class="contact-field">
               Message
-              <textarea id="message" name="message" rows="3" required maxlength="4000"></textarea>
+              <textarea id="message" name="message" rows="2" required maxlength="4000"></textarea>
             </label>
             <div class="hp" aria-hidden="true">
               <label>
@@ -87,7 +87,12 @@
               </label>
             </div>
             <div class="contact-actions">
-              <div class="cf-turnstile" data-sitekey="0x4AAAAAAFvwJ0wD5EGS9EUQ" data-size="compact"></div>
+              <div
+                class="cf-turnstile"
+                data-sitekey="0x4AAAAAAFvwJ0wD5EGS9EUQ"
+                data-size="normal"
+                data-theme="dark"
+              ></div>
               <button class="button" type="submit">Send</button>
             </div>
           </form>
@@ -95,9 +100,6 @@
       </section>
 
       <p class="page-credit">__HERO_CREDIT__</p>
-      <footer class="site-footer site-footer--on-photo">
-        <span>__SITE_NAME__</span>
-      </footer>
     </main>
     <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "911020731a68405eb5bfb1748cf2c8cd"}'></script>
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
