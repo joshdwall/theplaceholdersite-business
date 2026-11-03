@@ -1,0 +1,117 @@
+name: Promote ThePlaceholderText
+
+# Isolated cloud promote for joshdwall/theplaceholdersite-business ONLY.
+# Deploys this repo's Worker + assets to theplaceholdertext.com (and www).
+# Done = this workflow green + https://theplaceholdertext.com/ verify. Laptop wrangler is not Done.
+#
+# Secrets (repo Actions secrets), either:
+#   INFISICAL_CLIENT_ID + INFISICAL_CLIENT_SECRET  (preferred; reads /cloudflare)
+#   OR CLOUDFLARE_API_TOKEN + CLOUDFLARE_ACCOUNT_ID (deploy-only; keeps existing Worker secrets)
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'true = install only, no deploy'
+        required: false
+        default: 'false'
+        type: choice
+        options: ['false', 'true']
+      confirm_production:
+        description: 'PRODUCTION gate — type promote-production'
+        required: true
+        default: ''
+        type: string
+  push:
+    branches: [main]
+    paths:
+      - 'public/**'
+      - 'src/**'
+      - 'config/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'wrangler.jsonc'
+      - '.github/workflows/promote.yml'
+
+concurrency:
+  group: promote-theplaceholdersite-business
+  cancel-in-progress: false
+
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Production gate (dispatch)
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run != 'true' && inputs.confirm_production != 'promote-production' }}
+        run: |
+          echo "::error::Production deploy needs confirm_production=promote-production"
+          exit 1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Resolve Cloudflare credentials (Infisical optional)
+        id: cf
+        env:
+          INFISICAL_CLIENT_ID: ${{ secrets.INFISICAL_CLIENT_ID }}
+          INFISICAL_CLIENT_SECRET: ${{ secrets.INFISICAL_CLIENT_SECRET }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          if [ -n "${CLOUDFLARE_API_TOKEN:-}" ] && [ -n "${CLOUDFLARE_ACCOUNT_ID:-}" ]; then
+            echo "mode=actions-secrets" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if [ -z "${INFISICAL_CLIENT_ID:-}" ] || [ -z "${INFISICAL_CLIENT_SECRET:-}" ]; then
+            echo "::error::Need CLOUDFLARE_API_TOKEN+CLOUDFLARE_ACCOUNT_ID or Infisical UA secrets"
+            exit 1
+          fi
+          tok=$(curl -sS -X POST "https://app.infisical.com/api/v1/auth/universal-auth/login" \
+            -H "Content-Type: application/json" \
+            -d "{\"clientId\":\"${INFISICAL_CLIENT_ID}\",\"clientSecret\":\"${INFISICAL_CLIENT_SECRET}\"}" \
+            | node -e "let s='';process.stdin.on('data',d=>s+=d);process.stdin.on('end',()=>{const j=JSON.parse(s);if(!j.accessToken){console.error('no token');process.exit(1)};console.log(j.accessToken)})")
+          fetch() {
+            local path="$1" name="$2"
+            curl -sS "https://app.infisical.com/api/v4/secrets?projectId=41982513-3430-4531-a227-9aa124fe024d&environment=prod&secretPath=${path}&viewSecretValue=true" \
+              -H "Authorization: Bearer ${tok}" \
+              | node -e "let s='';process.stdin.on('data',d=>s+=d);process.stdin.on('end',()=>{const j=JSON.parse(s);const row=(j.secrets||[]).find(x=>x.secretKey===process.argv[1]);if(!row){console.error('missing '+process.argv[1]);process.exit(1)};process.stdout.write(row.secretValue)})" "$name"
+          }
+          echo "::add-mask::$(fetch /cloudflare CLOUDFLARE_API_TOKEN)"
+          echo "CLOUDFLARE_API_TOKEN=$(fetch /cloudflare CLOUDFLARE_API_TOKEN)" >> "$GITHUB_ENV"
+          echo "CLOUDFLARE_ACCOUNT_ID=$(fetch /cloudflare CLOUDFLARE_ACCOUNT_ID)" >> "$GITHUB_ENV"
+          echo "mode=infisical" >> "$GITHUB_OUTPUT"
+
+      - name: Dry-run
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run == 'true' }}
+        run: |
+          echo "Dry-run ok (mode=${{ steps.cf.outputs.mode }})"
+          npx wrangler deploy --dry-run
+
+      - name: Deploy production
+        if: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.dry_run != 'true') }}
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          if [ -z "${CLOUDFLARE_API_TOKEN:-}" ] || [ -z "${CLOUDFLARE_ACCOUNT_ID:-}" ]; then
+            echo "::error::Cloudflare credentials missing after resolve step"
+            exit 1
+          fi
+          npx wrangler deploy
+          {
+            echo "## ThePlaceholderText promote"
+            echo "- sha: \`$GITHUB_SHA\`"
+            echo "- live: https://theplaceholdertext.com/"
+          } >> "$GITHUB_STEP_SUMMARY"
