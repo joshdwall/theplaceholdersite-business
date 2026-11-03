@@ -18,9 +18,8 @@ export default {
       }
       return handleContact(request, env, ctx);
     }
-    if (url.pathname === "/products.html") {
-      const clean = new URL("/products/", url);
-      return Response.redirect(clean.toString(), 301);
+    if (url.pathname === "/products" || url.pathname === "/products.html") {
+      return Response.redirect(new URL("/products/", url).toString(), 301);
     }
     return renderAsset(request, env);
   },
@@ -57,13 +56,16 @@ async function handleContact(request, env, ctx) {
     return reply(request, env, "error");
   }
 
-  const name = oneLine(form.get("name"), 120);
   const email = oneLine(form.get("email"), 200);
   const organization = oneLine(form.get("organization"), 160);
   const message = String(form.get("message") || "").replace(/\r/g, "").trim().slice(0, 4000);
-  if (!name || !isEmail(email) || !message) {
+  if (!isEmail(email) || !message) {
     return reply(request, env, "error");
   }
+  const name =
+    oneLine(form.get("name"), 120) ||
+    email.split("@")[0].slice(0, 80) ||
+    "Visitor";
 
   const site = await loadSite(env, request);
   const brand = headerName(site.name);
@@ -149,8 +151,8 @@ async function reply(request, env, code) {
 async function redirect(request, env, code) {
   const copy = {
     sent: ["Message sent.", "We have it. A confirmation is on its way to the address you entered.", "success"],
-    slow: ["Message sent.", "The mail service was slow to answer. If you do not hear back, email info@theplaceholdertext.com.", "warning"],
-    "sent-noconfirm": ["Message sent.", "We have it. The confirmation to your address did not go out. We will still reply from info@theplaceholdertext.com.", "warning"],
+    slow: ["Message sent.", "The mail service was slow to answer. If you do not hear back, try again in a few minutes.", "warning"],
+    "sent-noconfirm": ["Message sent.", "We have it. The confirmation to your address did not go out. We will still reply.", "warning"],
     limited: ["Too many sends from this network.", "Wait a minute and try again.", "warning"],
     error: ["That message did not send.", "Check the fields and try again.", "danger"],
   };

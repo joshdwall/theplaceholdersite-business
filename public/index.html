@@ -9,23 +9,24 @@
     <style>:root { --brand-font: __FONT_FAMILY__; }</style>
     <link rel="stylesheet" href="/theme/moss.css" />
   </head>
-  <body>
+  <body class="home">
     <a class="skip" href="#main">Skip to content</a>
     <header class="nav">
-      <a class="brand" href="/#top">__SITE_NAME__</a>
+      <a class="brand" href="/">__SITE_NAME__</a>
       <nav aria-label="Sections">
         <ul class="nav-links">
-          <li><a href="/#services">Services</a></li>
+          <li><a href="/" aria-current="page">Home</a></li>
           <li><a href="/products/">Projects</a></li>
-          <li><a class="nav-cta" href="/#contact">Talk with us</a></li>
+          <li><a class="nav-cta" href="#contact">Talk with us</a></li>
         </ul>
       </nav>
     </header>
 
-    <main id="main">
+    <main id="main" class="page-field">
+      <img class="page-bg" src="__HERO_IMAGE__" alt="__HERO_ALT__" />
+      <div class="page-shade" aria-hidden="true"></div>
+
       <section class="hero" id="top">
-        <img class="hero-bg" src="__HERO_IMAGE__" alt="__HERO_ALT__" />
-        <div class="hero-shade" aria-hidden="true"></div>
         <div class="hero-stage">
           <div class="hero-copy">
             <h1 class="hero-brand">__SITE_NAME__</h1>
@@ -33,112 +34,55 @@
             <p class="lede">
               We sit with the work your people already do, then turn those steps into automations they will use.
             </p>
-            <div class="actions">
-              <a class="button" href="#contact">Talk with us</a>
-              <a class="button button-line" href="/products">See projects</a>
+          </div>
+          <div class="hero-panel" id="work" aria-label="What we put in place">
+            <p class="panel-label">What we put in place</p>
+            <div class="hero-cards">
+              <article class="hero-card">
+                <h3>Workflows become automations</h3>
+                <p>Watch the real sequence. Encode it.</p>
+              </article>
+              <article class="hero-card">
+                <h3>Less friction between desks</h3>
+                <p>One shared path. No inbox death.</p>
+              </article>
+              <article class="hero-card">
+                <h3>Tools people will use</h3>
+                <p>Fit the fix to the screen already open.</p>
+              </article>
+              <article class="hero-card">
+                <h3>Learned on the job</h3>
+                <p>Exceptions from the people who hit them.</p>
+              </article>
+              <article class="hero-card">
+                <h3>More paid work, same desk</h3>
+                <p>Busywork leaves. The person stays.</p>
+              </article>
             </div>
           </div>
-          <div class="hero-cards" id="services" aria-label="Services">
-            <a class="hero-card" href="#services-list">
-              <h3>Workflows become automations</h3>
-              <p>Watch the real sequence. Replace retyping and waiting with a step the system does.</p>
-            </a>
-            <a class="hero-card" href="#services-list">
-              <h3>Less friction between departments</h3>
-              <p>One shared path between desks so a request does not die in an inbox.</p>
-            </a>
-            <a class="hero-card" href="#services-list">
-              <h3>Tools staff will use</h3>
-              <p>Fit the fix to the screen they already have open. No second login for the same chart.</p>
-            </a>
-            <a class="hero-card" href="#services-list">
-              <h3>Learned on the job</h3>
-              <p>Learn the exceptions from the people who hit them, then encode the path they already trust.</p>
-            </a>
-            <a class="hero-card" href="#services-list">
-              <h3>More revenue, same headcount</h3>
-              <p>People stay on work that needs a person. Repeat steps leave the desk.</p>
-            </a>
-          </div>
-        </div>
-        <p class="hero-credit">__HERO_CREDIT__</p>
-      </section>
-
-      <section class="section services-band" id="services-list">
-        <div class="section-inner">
-          <p class="eyebrow">Services</p>
-          <h2>What we put in place</h2>
-          <ol class="practices">
-            <li class="practice">
-              <h3>Workflows become automations</h3>
-              <p>
-                We watch the real sequence — who waits, who retypes, who forwards — and replace that
-                path with a step the system does. The staff member stays in the job. The busywork leaves.
-              </p>
-            </li>
-            <li class="practice">
-              <h3>Less friction between departments</h3>
-              <p>
-                Handoffs fail when each desk keeps its own version of the work. We put one shared path
-                between them so a request does not die in an inbox.
-              </p>
-            </li>
-            <li class="practice">
-              <h3>Tools your staff will want to use</h3>
-              <p>
-                If the tool adds a login, a new screen, and a second copy of the chart, people go around
-                it. We fit the fix to the screen they already have open.
-              </p>
-            </li>
-            <li class="practice">
-              <h3>Learned on the job</h3>
-              <p>
-                The analysis happens while the work is happening. We learn the exceptions from the people
-                who hit them, then encode the path they already trust.
-              </p>
-            </li>
-            <li class="practice">
-              <h3>More revenue, fewer people on the same task</h3>
-              <p>
-                The same desk can finish more of the work that gets paid. Headcount stays on the work
-                that needs a person. Repeat steps do not.
-              </p>
-            </li>
-          </ol>
         </div>
       </section>
 
-      <section class="section contact-band" id="contact">
-        <div class="section-inner contact-grid">
-          <div>
+      <section class="contact-band" id="contact">
+        <div class="contact-shell">
+          <div class="contact-copy">
             <p class="eyebrow">Contact</p>
-            <h2>Share a few details.</h2>
-            <p class="intro">
-              A person reads this. You get a confirmation at the address you enter, then a reply from
-              <a class="mail" href="mailto:info@theplaceholdertext.com">info@theplaceholdertext.com</a>.
-            </p>
+            <h2 class="contact-title">Talk with us</h2>
+            <p class="intro">A person reads this and replies.</p>
           </div>
-          <form method="post" action="/api/contact">
-            <div id="form-sent" class="note is-hidden" role="status">Message sent. We have it. A confirmation is on its way to the address you entered.</div>
-            <div id="form-slow" class="note note-warn is-hidden" role="status">Message sent. The mail service was slow to answer. If you do not hear back, email info@theplaceholdertext.com.</div>
-            <div id="form-sent-noconfirm" class="note note-warn is-hidden" role="status">Message sent. We have it. The confirmation to your address did not go out. We will still reply from info@theplaceholdertext.com.</div>
-            <div id="form-limited" class="note note-warn is-hidden" role="status">Too many sends from this network. Wait a minute and try again.</div>
-            <div id="form-error" class="note note-bad is-hidden" role="status">That message did not send. Check the fields and try again.</div>
-            <label>
-              Name
-              <input id="name" name="name" required maxlength="120" autocomplete="name" />
-            </label>
-            <label>
+          <form method="post" action="/api/contact" class="contact-form" aria-label="Contact">
+            <div id="form-sent" class="note is-hidden" role="status">Message sent. Confirmation is on its way.</div>
+            <div id="form-slow" class="note note-warn is-hidden" role="status">Message sent. If you do not hear back, try again in a few minutes.</div>
+            <div id="form-sent-noconfirm" class="note note-warn is-hidden" role="status">Message sent. Confirmation mail failed; we will still reply.</div>
+            <div id="form-limited" class="note note-warn is-hidden" role="status">Too many sends. Wait a minute and try again.</div>
+            <div id="form-error" class="note note-bad is-hidden" role="status">That message did not send. Try again.</div>
+            <label class="contact-field">
               Email
               <input id="email" name="email" type="email" required maxlength="200" autocomplete="email" />
             </label>
-            <label>
-              Organization
-              <input id="organization" name="organization" maxlength="160" autocomplete="organization" />
-            </label>
-            <label>
-              What do you need?
-              <textarea id="message" name="message" rows="5" required maxlength="4000"></textarea>
+            <label class="contact-field">
+              Message
+              <textarea id="message" name="message" rows="4" required maxlength="4000"></textarea>
             </label>
             <div class="hp" aria-hidden="true">
               <label>
@@ -146,17 +90,19 @@
                 <input id="company_url" name="company_url" tabindex="-1" autocomplete="off" />
               </label>
             </div>
-            <div class="cf-turnstile" data-sitekey="0x4AAAAAAFvwJ0wD5EGS9EUQ"></div>
-            <button class="button" type="submit">Send</button>
+            <div class="contact-actions">
+              <div class="cf-turnstile" data-sitekey="0x4AAAAAAFvwJ0wD5EGS9EUQ" data-size="compact"></div>
+              <button class="button" type="submit">Send</button>
+            </div>
           </form>
         </div>
       </section>
-    </main>
 
-    <footer class="site-footer">
-      <span>__SITE_NAME__</span>
-      <a href="mailto:info@theplaceholdertext.com">info@theplaceholdertext.com</a>
-    </footer>
+      <p class="page-credit">__HERO_CREDIT__</p>
+      <footer class="site-footer site-footer--on-photo">
+        <span>__SITE_NAME__</span>
+      </footer>
+    </main>
     <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "911020731a68405eb5bfb1748cf2c8cd"}'></script>
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <script>

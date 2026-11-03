@@ -9,20 +9,22 @@
     <style>:root { --brand-font: __FONT_FAMILY__; }</style>
     <link rel="stylesheet" href="/theme/moss.css" />
   </head>
-  <body>
+  <body class="projects">
     <a class="skip" href="#main">Skip to content</a>
     <header class="nav">
       <a class="brand" href="/">__SITE_NAME__</a>
       <nav aria-label="Sections">
         <ul class="nav-links">
-          <li><a href="/#services">Services</a></li>
+          <li><a href="/">Home</a></li>
           <li><a href="/products/" aria-current="page">Projects</a></li>
           <li><a class="nav-cta" href="/#contact">Talk with us</a></li>
         </ul>
       </nav>
     </header>
 
-    <main id="main">
+    <main id="main" class="projects-page">
+      <img class="page-bg" src="__HERO_IMAGE__" alt="__HERO_ALT__" />
+      <div class="page-shade" aria-hidden="true"></div>
       <section class="section products-band" id="projects">
         <div class="section-inner products-intro">
           <p class="eyebrow">Projects</p>
@@ -36,14 +38,14 @@
               <h2>Phrase Board</h2>
               <p class="summary">A Windows overlay that stays on top of the job. Staff keep the phrases they repeat — chart notes, ticket replies, handoffs — on a board and copy them in one click.</p>
               <ul class="points"><li>Stays above the window the person is already working in.</li><li>Boards hold the phrases a desk repeats all day.</li><li>One click copies the phrase into the place the work already happens.</li><li>The first sales motion is Microsoft: Windows teams, then the Microsoft Store.</li></ul>
-              <p class="status">Windows. Store submission in progress. Picture is a stand-in.</p>
+              <p class="status">Windows. Store submission in progress.</p>
             </div>
             <div class="pcard-media">
-              <div class="pcard-frame"><img class="pgallery-hero" src="/media/phrase-board.svg" alt="Phrase Board. Image coming." width="640" height="400" loading="lazy" /></div>
-              <p class="pgallery-cap">Phrase Board. Image coming.</p>
+              <div class="pcard-frame"><img class="pgallery-hero" src="/media/phrase-board-blank.png" alt="Phrase Board blank board" width="640" height="400" loading="lazy" /></div>
+              <p class="pgallery-cap">Blank board ready for phrases</p>
             </div>
           </div>
-          
+          <div class="pgallery-strip"><button type="button" class="is-on" data-full="/media/phrase-board-blank.png" data-cap="Blank board ready for phrases" aria-label="Blank board ready for phrases"><img src="/media/phrase-board-blank.png" alt="" loading="lazy" /></button><button type="button" data-full="/media/phrase-board-editing-menu.png" data-cap="Editing menu" aria-label="Editing menu"><img src="/media/phrase-board-editing-menu.png" alt="" loading="lazy" /></button></div>
         </article>
 
         <article class="pcard" id="case-canvas" data-gallery>
@@ -177,9 +179,9 @@
       </section>
     </main>
 
+    <p class="page-credit">__HERO_CREDIT__</p>
     <footer class="site-footer">
       <span>__SITE_NAME__</span>
-      <a href="mailto:info@theplaceholdertext.com">info@theplaceholdertext.com</a>
     </footer>
     <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "911020731a68405eb5bfb1748cf2c8cd"}'></script>
     <script>
