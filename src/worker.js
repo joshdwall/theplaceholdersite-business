@@ -18,7 +18,12 @@ export default {
       }
       return handleContact(request, env, ctx);
     }
-    if (url.pathname === "/products" || url.pathname === "/products.html") {
+    if (
+      url.pathname === "/products" ||
+      url.pathname === "/products.html" ||
+      url.pathname === "/projects" ||
+      url.pathname === "/projects/"
+    ) {
       return Response.redirect(new URL("/products/", url).toString(), 301);
     }
     return renderAsset(request, env);

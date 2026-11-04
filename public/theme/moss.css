@@ -860,9 +860,8 @@ body.lightbox-open {
 }
 
 @media (max-width: 800px) {
-  .nav-links a:not(.nav-cta):not([aria-current="page"]) {
-    display: none;
-  }
+  /* Keep Home + Projects visible on narrow/mobile. Previously non-current
+     section links were display:none, so the home page only showed "Home". */
 
   .hero-cards,
   .pcard-main {
