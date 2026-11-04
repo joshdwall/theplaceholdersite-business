@@ -32,69 +32,65 @@
             <h1 class="hero-brand">__SITE_NAME__</h1>
             <p class="hero-tag">__SITE_TAGLINE__</p>
           </div>
-          <div class="hero-panel" id="work" aria-label="What we put in place">
-            <p class="panel-label">What we put in place</p>
-            <div class="hero-cards">
-              <article class="hero-card">
-                <h3>Workflows become automations</h3>
-                <p>Watch the real sequence. Encode it.</p>
-              </article>
-              <article class="hero-card">
-                <h3>Less friction between desks</h3>
-                <p>One shared path. No inbox death.</p>
-              </article>
-              <article class="hero-card">
-                <h3>Tools people will use</h3>
-                <p>Fit the fix to the screen already open.</p>
-              </article>
-              <article class="hero-card">
-                <h3>Learned on the job</h3>
-                <p>Exceptions from the people who hit them.</p>
-              </article>
-              <article class="hero-card">
-                <h3>More paid work, same desk</h3>
-                <p>Busywork leaves. The person stays.</p>
-              </article>
-            </div>
+          <p class="panel-label" id="work">What we put in place</p>
+          <div class="hero-cards" aria-label="What we put in place">
+            <article class="hero-card">
+              <h3>Workflows become automations</h3>
+              <p>Watch the real sequence. Encode it.</p>
+            </article>
+            <article class="hero-card">
+              <h3>Less friction between desks</h3>
+              <p>One shared path. No inbox death.</p>
+            </article>
+            <article class="hero-card">
+              <h3>Tools people will use</h3>
+              <p>Fit the fix to the screen already open.</p>
+            </article>
+            <article class="hero-card">
+              <h3>Learned on the job</h3>
+              <p>Exceptions from the people who hit them.</p>
+            </article>
+            <article class="hero-card">
+              <h3>More paid work, same desk</h3>
+              <p>Busywork leaves. The person stays.</p>
+            </article>
           </div>
 
-          <aside class="hero-contact" id="contact">
-            <div class="contact-copy">
-              <p class="eyebrow">Contact</p>
-              <h2 class="contact-title">Talk with us</h2>
-              <p class="intro">A person reads this and replies.</p>
+          <div class="contact-copy" id="contact">
+            <p class="eyebrow">Contact</p>
+            <h2 class="contact-title">Talk with us</h2>
+            <p class="intro">A person reads this and replies.</p>
+          </div>
+          <form method="post" action="/api/contact" class="contact-form" aria-label="Contact">
+            <div id="form-sent" class="note is-hidden" role="status">Message sent. Confirmation is on its way.</div>
+            <div id="form-slow" class="note note-warn is-hidden" role="status">Message sent. If you do not hear back, try again in a few minutes.</div>
+            <div id="form-sent-noconfirm" class="note note-warn is-hidden" role="status">Message sent. Confirmation mail failed; we will still reply.</div>
+            <div id="form-limited" class="note note-warn is-hidden" role="status">Too many sends. Wait a minute and try again.</div>
+            <div id="form-error" class="note note-bad is-hidden" role="status">That message did not send. Try again.</div>
+            <label class="contact-field">
+              Email
+              <input id="email" name="email" type="email" required maxlength="200" autocomplete="email" />
+            </label>
+            <label class="contact-field contact-field--message">
+              Message
+              <textarea id="message" name="message" rows="2" required maxlength="4000"></textarea>
+            </label>
+            <div class="hp" aria-hidden="true">
+              <label>
+                Company URL
+                <input id="company_url" name="company_url" tabindex="-1" autocomplete="off" />
+              </label>
             </div>
-            <form method="post" action="/api/contact" class="contact-form" aria-label="Contact">
-              <div id="form-sent" class="note is-hidden" role="status">Message sent. Confirmation is on its way.</div>
-              <div id="form-slow" class="note note-warn is-hidden" role="status">Message sent. If you do not hear back, try again in a few minutes.</div>
-              <div id="form-sent-noconfirm" class="note note-warn is-hidden" role="status">Message sent. Confirmation mail failed; we will still reply.</div>
-              <div id="form-limited" class="note note-warn is-hidden" role="status">Too many sends. Wait a minute and try again.</div>
-              <div id="form-error" class="note note-bad is-hidden" role="status">That message did not send. Try again.</div>
-              <label class="contact-field">
-                Email
-                <input id="email" name="email" type="email" required maxlength="200" autocomplete="email" />
-              </label>
-              <label class="contact-field contact-field--message">
-                Message
-                <textarea id="message" name="message" rows="2" required maxlength="4000"></textarea>
-              </label>
-              <div class="hp" aria-hidden="true">
-                <label>
-                  Company URL
-                  <input id="company_url" name="company_url" tabindex="-1" autocomplete="off" />
-                </label>
-              </div>
-              <div class="contact-actions">
-                <div
-                  class="cf-turnstile"
-                  data-sitekey="0x4AAAAAAFvwJ0wD5EGS9EUQ"
-                  data-size="normal"
-                  data-theme="dark"
-                ></div>
-                <button class="button" type="submit">Send</button>
-              </div>
-            </form>
-          </aside>
+            <div class="contact-actions">
+              <div
+                class="cf-turnstile"
+                data-sitekey="0x4AAAAAAFvwJ0wD5EGS9EUQ"
+                data-size="normal"
+                data-theme="dark"
+              ></div>
+              <button class="button" type="submit">Send</button>
+            </div>
+          </form>
         </div>
       </section>
 
