@@ -175,45 +175,47 @@ a {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
-  grid-template-areas:
-    "copy panel"
-    "contact-form contact-copy";
-  gap: 0.85rem 2rem;
-  align-items: end;
+  grid-template-columns: minmax(0, 1.2fr) minmax(16rem, 22rem);
+  gap: 1.25rem 2.25rem;
+  align-items: center;
   width: min(86rem, calc(100% - 2rem));
   margin: 0 auto;
-  padding: 1.1rem 0 1.6rem;
-  min-height: min(58vh, 28rem);
+  padding: 1.25rem 0 1.75rem;
+  min-height: min(62vh, 32rem);
+}
+
+.hero-main {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.95rem;
 }
 
 .hero-copy {
-  grid-area: copy;
   min-width: 0;
-  align-self: center;
 }
 
 .hero-panel {
-  grid-area: panel;
   min-width: 0;
-  align-self: center;
 }
 
-.contact-form {
-  grid-area: contact-form;
-  align-self: end;
-  justify-self: stretch;
-  width: min(100%, 26rem);
+.hero-contact {
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  align-self: center;
+  width: 100%;
 }
 
 .contact-copy {
-  grid-area: contact-copy;
-  align-self: end;
-  justify-self: start;
   text-align: left;
-  max-width: 18rem;
-  padding-bottom: 0.35rem;
+  max-width: none;
+}
+
+.contact-form {
+  width: 100%;
+  min-width: 0;
 }
 
 .hero-brand {
@@ -233,14 +235,6 @@ a {
   font-weight: 500;
   letter-spacing: -0.025em;
   line-height: 1.15;
-}
-
-.lede {
-  max-width: 28rem;
-  margin-top: 0.85rem;
-  color: #e7f0ea;
-  font-size: 0.95rem;
-  line-height: 1.45;
 }
 
 .panel-label {
@@ -829,11 +823,7 @@ body.lightbox-open {
 @media (max-width: 900px) {
   .hero-stage {
     grid-template-columns: 1fr;
-    grid-template-areas:
-      "copy"
-      "panel"
-      "contact-form"
-      "contact-copy";
+    align-items: stretch;
     min-height: 0;
     padding: 1.1rem 0 1.75rem;
   }
@@ -851,14 +841,8 @@ body.lightbox-open {
     font-size: clamp(2.1rem, 10vw, 3.4rem);
   }
 
-  .contact-form {
-    width: 100%;
-  }
-
-  .contact-copy {
-    justify-self: start;
-    text-align: left;
-    max-width: none;
+  .hero-contact {
+    max-width: 28rem;
   }
 
   .contact-actions {
