@@ -175,13 +175,12 @@ a {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: max-content minmax(16rem, 22rem);
+  grid-template-columns: minmax(0, 1.2fr) minmax(16rem, 22rem);
   grid-template-rows: auto auto auto;
   grid-template-areas:
     "copy ."
     "label contact-copy"
     "cards contact-form";
-  justify-content: start;
   column-gap: 2.25rem;
   row-gap: 0.5rem;
   align-items: start;
@@ -202,8 +201,8 @@ a {
 
 .hero-cards {
   grid-area: cards;
-  width: max-content;
-  max-width: 100%;
+  width: 100%;
+  min-width: 0;
 }
 
 .contact-copy {
@@ -253,24 +252,19 @@ a {
 
 .hero-cards {
   display: grid;
-  grid-template-columns: repeat(2, max-content);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.45rem;
   align-content: start;
-  justify-content: start;
 }
 
 .hero-card {
-  width: max-content;
-  max-width: 18rem;
-  padding: 0.55rem 0.7rem 0.6rem;
+  padding: 0.7rem 0.8rem 0.75rem;
   border: 1px solid rgba(255, 255, 255, 0.28);
   background: rgba(6, 18, 12, 0.58);
 }
 
 .hero-card:last-child:nth-child(odd) {
   grid-column: 1 / -1;
-  width: auto;
-  max-width: none;
 }
 
 .hero-card h3 {
@@ -872,13 +866,7 @@ body.lightbox-open {
   }
 
   .hero-cards {
-    width: 100%;
     grid-template-columns: 1fr;
-  }
-
-  .hero-card {
-    width: auto;
-    max-width: none;
   }
 
   .contact-form {
