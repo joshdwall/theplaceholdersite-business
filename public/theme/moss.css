@@ -176,46 +176,56 @@ a {
   z-index: 1;
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(16rem, 22rem);
-  gap: 1.25rem 2.25rem;
-  align-items: center;
+  grid-template-rows: auto minmax(0, 1fr);
+  grid-template-areas:
+    "copy ."
+    "panel contact";
+  column-gap: 2.25rem;
+  row-gap: 0.95rem;
+  align-items: stretch;
   width: min(86rem, calc(100% - 2rem));
   margin: 0 auto;
   padding: 1.25rem 0 1.75rem;
   min-height: min(62vh, 32rem);
 }
 
-.hero-main {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.95rem;
-}
-
 .hero-copy {
+  grid-area: copy;
   min-width: 0;
 }
 
 .hero-panel {
-  min-width: 0;
-}
-
-.hero-contact {
+  grid-area: panel;
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.65rem;
-  align-self: center;
+}
+
+.hero-cards {
+  flex: 1 1 auto;
+}
+
+.hero-contact {
+  grid-area: contact;
+  min-width: 0;
   width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
 }
 
 .contact-copy {
+  flex: 0 0 auto;
   text-align: left;
   max-width: none;
 }
 
 .contact-form {
+  flex: 1 1 auto;
   width: 100%;
   min-width: 0;
+  min-height: 0;
 }
 
 .hero-brand {
@@ -250,6 +260,7 @@ a {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.45rem;
+  align-content: start;
 }
 
 .hero-card {
@@ -356,6 +367,11 @@ a {
   text-transform: uppercase;
 }
 
+.contact-field--message {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
 label {
   display: grid;
   gap: 0.2rem;
@@ -389,6 +405,13 @@ textarea::placeholder {
 textarea {
   resize: vertical;
   min-height: 2.8rem;
+}
+
+.contact-field--message textarea {
+  flex: 1 1 auto;
+  min-height: 4.5rem;
+  height: 100%;
+  resize: none;
 }
 
 .contact-actions {
@@ -823,6 +846,11 @@ body.lightbox-open {
 @media (max-width: 900px) {
   .hero-stage {
     grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "copy"
+      "panel"
+      "contact";
     align-items: stretch;
     min-height: 0;
     padding: 1.1rem 0 1.75rem;
@@ -843,6 +871,17 @@ body.lightbox-open {
 
   .hero-contact {
     max-width: 28rem;
+    height: auto;
+  }
+
+  .contact-form {
+    flex: 0 0 auto;
+  }
+
+  .contact-field--message textarea {
+    height: auto;
+    min-height: 4.5rem;
+    resize: vertical;
   }
 
   .contact-actions {
