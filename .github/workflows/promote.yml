@@ -31,7 +31,12 @@ on:
   push:
     branches: [main]
     paths:
-      - 'public/**'
+      - 'public/index.html'
+      - 'public/404.html'
+      - 'public/products/**'
+      - 'public/theme/**'
+      - 'public/media/**'
+      - 'public/vendor/**'
       - 'src/**'
       - 'config/**'
       - 'scripts/**'
@@ -40,8 +45,6 @@ on:
       - 'package-lock.json'
       - 'wrangler.jsonc'
       - '.github/workflows/promote.yml'
-    paths-ignore:
-      - 'public/config/**'
 
 concurrency:
   group: promote-theplaceholdersite-business

@@ -195,6 +195,7 @@ const FALLBACK_SITE = {
     barInk: "#122018",
     line: "#c5d9cb",
   },
+  configUrl: "https://raw.githubusercontent.com/joshdwall/theplaceholdersite-business/main/public/config/site.json",
 };
 
 async function renderAsset(request, env) {
@@ -215,16 +216,15 @@ async function renderAsset(request, env) {
 }
 
 async function loadSite(env, request) {
+  const remote = env.CONFIG_URL || FALLBACK_SITE.configUrl;
   try {
-    if (env.SITE_CONFIG) {
-      const raw = await env.SITE_CONFIG.get("site");
-      if (raw) {
-        const json = JSON.parse(raw);
-        if (json && typeof json === "object") return json;
-      }
+    const res = await fetch(remote, { cf: { cacheTtl: 60, cacheEverything: true } });
+    if (res.ok) {
+      const json = await res.json();
+      if (json && typeof json === "object") return json;
     }
   } catch {
-    /* fall through to the asset copy */
+    /* fall through to the copy shipped with the Worker */
   }
   try {
     const url = new URL("/config/site.json", request.url);

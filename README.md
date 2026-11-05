@@ -37,7 +37,7 @@ The new address must already be a verified Cloudflare Email Routing destination.
 
 `public/config/site.json` is the site config (name, tagline, hero, and `theme` colors). The CSS only reads variables (`--color-bar`, `--color-card`, `--color-bar-ink`, `--color-line`).
 
-Pushing a change under `public/config/` runs **Update ThePlaceholderText config**. That writes the JSON into Cloudflare KV (key-value storage). It does not redeploy the Worker. The next request uses the new colors.
+Pushing a change under `public/config/` is enough. The Worker reads that file from GitHub `main` and applies it on the next request (about a minute). That push does not redeploy the Worker.
 
 ```bash
 npm run config
