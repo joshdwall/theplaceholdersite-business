@@ -21,5 +21,11 @@
     "image": "/media/moss-rocks.jpg",
     "alt": "Lush green moss growing over forest rocks",
     "credit": "Photograph by Marianne Gagnon. Public domain."
+  },
+  "theme": {
+    "bar": "#e5f2e8",
+    "card": "#e5f2e8",
+    "barInk": "#122018",
+    "line": "#c5d9cb"
   }
 }

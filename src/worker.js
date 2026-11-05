@@ -189,6 +189,12 @@ const FALLBACK_SITE = {
     alt: "Lush green moss growing over forest rocks",
     credit: "Photograph by Marianne Gagnon. Public domain.",
   },
+  theme: {
+    bar: "#e5f2e8",
+    card: "#e5f2e8",
+    barInk: "#122018",
+    line: "#c5d9cb",
+  },
 };
 
 async function renderAsset(request, env) {
@@ -209,6 +215,17 @@ async function renderAsset(request, env) {
 }
 
 async function loadSite(env, request) {
+  try {
+    if (env.SITE_CONFIG) {
+      const raw = await env.SITE_CONFIG.get("site");
+      if (raw) {
+        const json = JSON.parse(raw);
+        if (json && typeof json === "object") return json;
+      }
+    }
+  } catch {
+    /* fall through to the asset copy */
+  }
   try {
     const url = new URL("/config/site.json", request.url);
     const res = await env.ASSETS.fetch(new Request(url));
@@ -234,6 +251,7 @@ function applyHtml(html, site) {
   const href = fontHref(font.stylesheet);
   const link = href ? `<link rel="stylesheet" href="${esc(href)}" />` : "";
   const hero = site.hero || FALLBACK_SITE.hero;
+  const theme = themeStyle(site.theme);
   const pairs = [
     ["__FONT_LINK__", link],
     ["__FONT_FAMILY__", cssFamily(font.family)],
@@ -243,10 +261,25 @@ function applyHtml(html, site) {
     ["__HERO_IMAGE__", esc(assetPath(hero.image, FALLBACK_SITE.hero.image))],
     ["__HERO_ALT__", esc(hero.alt || FALLBACK_SITE.hero.alt)],
     ["__HERO_CREDIT__", esc(hero.credit || "")],
+    ["__THEME_STYLE__", theme],
   ];
   let out = html;
   for (const [token, value] of pairs) out = out.replaceAll(token, value);
+  if (!html.includes("__THEME_STYLE__") && theme) {
+    out = out.replace("</head>", `${theme}</head>`);
+  }
   return out;
+}
+
+function themeStyle(theme) {
+  const src = theme && typeof theme === "object" ? theme : FALLBACK_SITE.theme;
+  const hex = /^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/;
+  const pick = (key, fallback) => (hex.test(String(src[key] || "")) ? String(src[key]) : fallback);
+  const bar = pick("bar", FALLBACK_SITE.theme.bar);
+  const card = pick("card", FALLBACK_SITE.theme.card);
+  const ink = pick("barInk", FALLBACK_SITE.theme.barInk);
+  const line = pick("line", FALLBACK_SITE.theme.line);
+  return `<style id="site-theme">:root{--color-bar:${bar};--color-card:${card};--color-bar-ink:${ink};--color-line:${line}}</style>`;
 }
 
 function esc(value) {

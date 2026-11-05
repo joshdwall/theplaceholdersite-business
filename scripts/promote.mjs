@@ -197,6 +197,62 @@ async function preview(creds) {
   console.log(`note=custom domain stays on production until promote`);
 }
 
+async function cfJson(creds, apiPath, init = {}) {
+  const res = await fetch(`${CF}/accounts/${creds.account}${apiPath}`, {
+    ...init,
+    headers: {
+      authorization: `Bearer ${creds.token}`,
+      ...(init.body ? { "content-type": "application/json" } : {}),
+      ...(init.headers || {}),
+    },
+  });
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok || json.success === false) {
+    throw new Error(`Cloudflare ${apiPath} failed (${res.status})`);
+  }
+  return json;
+}
+
+/** Config lives in KV so a color change does not need a full Worker promote. */
+async function ensureConfigKv(creds) {
+  const title = "theplaceholdertext-site-config";
+  const list = await cfJson(creds, "/storage/kv/namespaces");
+  let ns = (list.result || []).find((row) => row.title === title);
+  if (!ns) {
+    const created = await cfJson(creds, "/storage/kv/namespaces", {
+      method: "POST",
+      body: JSON.stringify({ title }),
+    });
+    ns = created.result;
+  }
+  const wranglerPath = path.join(root, "wrangler.jsonc");
+  const text = fs.readFileSync(wranglerPath, "utf8");
+  const next = text.replace(
+    /("binding"\s*:\s*"SITE_CONFIG"\s*,\s*"id"\s*:\s*")[^"]*(")/,
+    `$1${ns.id}$2`,
+  );
+  if (next === text || !next.includes(ns.id)) {
+    throw new Error("wrangler.jsonc is missing the SITE_CONFIG binding");
+  }
+  fs.writeFileSync(wranglerPath, next);
+  console.log(`kv_namespace=${ns.id}`);
+  return ns.id;
+}
+
+async function putSiteConfig(creds, namespaceId) {
+  const body = fs.readFileSync(path.join(root, "public/config/site.json"));
+  const res = await fetch(
+    `${CF}/accounts/${creds.account}/storage/kv/namespaces/${namespaceId}/values/site`,
+    {
+      method: "PUT",
+      headers: { authorization: `Bearer ${creds.token}` },
+      body,
+    },
+  );
+  if (!res.ok) die(`config put failed (${res.status})`);
+  console.log("config_kv=site");
+}
+
 async function promote(creds) {
   if (!confirmed && !dryRun) {
     die('Production promote needs --confirm (or CONFIRM_PRODUCTION=promote-production)');
@@ -206,10 +262,12 @@ async function promote(creds) {
     wrangler(["deploy", "--dry-run"], creds);
     return;
   }
+  const namespaceId = dryRun ? "" : await ensureConfigKv(creds);
   const out = wrangler(["deploy"], creds);
   const id = parseVersionId(out);
   console.log(`version=${id || "(see wrangler output)"}`);
   await verify(cfg.publicUrl);
+  if (namespaceId) await putSiteConfig(creds, namespaceId);
   // www should 301/200 to apex content
   try {
     const res = await fetch(cfg.wwwUrl, { redirect: "follow" });
@@ -222,7 +280,15 @@ async function promote(creds) {
 
 async function main() {
   if (!cmd || flags.has("--help") || flags.has("-h")) usage();
-  if (!["preview", "promote", "verify", "current"].includes(cmd)) usage();
+  if (!["preview", "promote", "verify", "current", "config"].includes(cmd)) usage();
+
+  if (cmd === "config") {
+    const creds = await cloudflareCreds();
+    const namespaceId = await ensureConfigKv(creds);
+    await putSiteConfig(creds, namespaceId);
+    console.log("config_only=true");
+    return;
+  }
 
   if (cmd === "verify") {
     await verify(positionals[0] || cfg.publicUrl);
