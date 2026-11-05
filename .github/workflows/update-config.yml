@@ -1,7 +1,7 @@
 name: Update ThePlaceholderText config
 
-# Writes public/config/site.json into KV. Does not redeploy the Worker.
-# Colors and copy in that file apply on the next request.
+# Confirms public/config/site.json. The live Worker reads that file from GitHub
+# (raw main) and does not need a Worker promote for color or copy changes.
 
 on:
   workflow_dispatch:
@@ -31,36 +31,13 @@ jobs:
       - name: Install
         run: npm ci
 
-      - name: Resolve Cloudflare credentials
-        env:
-          INFISICAL_CLIENT_ID: ${{ secrets.INFISICAL_CLIENT_ID }}
-          INFISICAL_CLIENT_SECRET: ${{ secrets.INFISICAL_CLIENT_SECRET }}
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        run: |
-          set -euo pipefail
-          if [ -n "${CLOUDFLARE_API_TOKEN:-}" ] && [ -n "${CLOUDFLARE_ACCOUNT_ID:-}" ]; then
-            if [ "${#CLOUDFLARE_ACCOUNT_ID}" -lt 32 ]; then
-              echo "::error::CLOUDFLARE_ACCOUNT_ID length looks wrong (${#CLOUDFLARE_ACCOUNT_ID})"
-              exit 1
-            fi
-            {
-              echo "CLOUDFLARE_API_TOKEN=${CLOUDFLARE_API_TOKEN}"
-              echo "CLOUDFLARE_ACCOUNT_ID=${CLOUDFLARE_ACCOUNT_ID}"
-            } >> "$GITHUB_ENV"
-            echo "::add-mask::${CLOUDFLARE_API_TOKEN}"
-            exit 0
-          fi
-          echo "::error::Need CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID"
-          exit 1
-
-      - name: Publish config
+      - name: Check config
         run: |
           set -euo pipefail
           node scripts/promote.mjs config
           {
             echo "## ThePlaceholderText config"
             echo "- sha: \`$GITHUB_SHA\`"
-            echo "- key: \`site\` in KV \`theplaceholdertext-site-config\`"
+            echo "- source: GitHub \`main\` \`public/config/site.json\`"
             echo "- live: https://theplaceholdertext.com/"
           } >> "$GITHUB_STEP_SUMMARY"
