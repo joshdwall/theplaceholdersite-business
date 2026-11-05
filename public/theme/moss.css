@@ -172,7 +172,7 @@ a {
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 5.5rem 1rem 2rem;
+  padding: 0 1rem 2rem;
   color: var(--color-on-dark);
 }
 
@@ -193,6 +193,7 @@ a {
   max-width: 100%;
   margin: 0 auto;
   padding: 0;
+  transform: translateY(-12vh);
 }
 
 .hero-copy {
@@ -886,8 +887,12 @@ body.home textarea {
 
   .hero {
     min-height: 0;
-    align-items: stretch;
-    padding: 2.5rem 1rem 1.75rem;
+    align-items: flex-start;
+    padding: 1.6rem 1rem 1.75rem;
+  }
+
+  .hero-stage {
+    transform: none;
   }
 
   .hero-tag {
