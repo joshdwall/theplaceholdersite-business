@@ -195,7 +195,7 @@ const FALLBACK_SITE = {
     barInk: "#122018",
     line: "#c5d9cb",
   },
-  configUrl: "https://raw.githubusercontent.com/joshdwall/theplaceholdersite-business/main/public/config/site.json",
+  configUrl: "https://raw.githubusercontent.com/joshdwall/theplaceholdertext/main/public/config/site.json",
 };
 
 async function renderAsset(request, env) {

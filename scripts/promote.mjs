@@ -231,7 +231,7 @@ async function main() {
       die("public/config/site.json theme.bar and theme.card are required");
     }
     console.log("config_ok=true");
-    console.log("config_url=https://raw.githubusercontent.com/joshdwall/theplaceholdersite-business/main/public/config/site.json");
+    console.log("config_url=https://raw.githubusercontent.com/joshdwall/theplaceholdertext/main/public/config/site.json");
     console.log("note=push to main updates the live site within about a minute; this does not deploy the Worker");
     return;
   }
