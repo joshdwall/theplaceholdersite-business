@@ -8,6 +8,7 @@
     "preview": "node scripts/promote.mjs preview",
     "promote": "node scripts/promote.mjs promote",
     "verify": "node scripts/promote.mjs verify",
+    "config": "node scripts/promote.mjs config",
     "current": "node scripts/promote.mjs current",
     "deploy": "node scripts/promote.mjs promote --confirm"
   },

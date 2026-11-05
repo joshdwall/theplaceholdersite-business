@@ -40,6 +40,8 @@ on:
       - 'package-lock.json'
       - 'wrangler.jsonc'
       - '.github/workflows/promote.yml'
+    paths-ignore:
+      - 'public/config/**'
 
 concurrency:
   group: promote-theplaceholdersite-business

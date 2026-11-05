@@ -33,7 +33,17 @@ npx wrangler deploy
 
 The new address must already be a verified Cloudflare Email Routing destination. Inbound mail to `info@theplaceholdertext.com` is forwarded there. The contact form sends to the same address.
 
-## Deploy / promote (cloud-only Done)
+## Config without a full promote
+
+`public/config/site.json` is the site config (name, tagline, hero, and `theme` colors). The CSS only reads variables (`--color-bar`, `--color-card`, `--color-bar-ink`, `--color-line`).
+
+Pushing a change under `public/config/` runs **Update ThePlaceholderText config**. That writes the JSON into Cloudflare KV (key-value storage). It does not redeploy the Worker. The next request uses the new colors.
+
+```bash
+npm run config
+```
+
+UI changes under `public/theme/` or `public/*.html` still use **Promote ThePlaceholderText**.
 
 **SSOT:** GitHub Actions workflow **Promote ThePlaceholderText** in this repo (`push` to `main`, or `workflow_dispatch` with `confirm_production=promote-production`).
 
